@@ -75,3 +75,36 @@ body {
   transform: translate(3px, 3px);
   box-shadow: 1px 1px 0 #000;
 }
+
+/* Collapsible help sections with a menu style arrow. */
+.guide > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.guide > summary::-webkit-details-marker {
+  display: none;
+}
+
+.guide > summary::before {
+  content: "▶";
+  color: var(--accent);
+  font-size: 0.8em;
+  transition: transform 120ms;
+}
+
+.guide[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.guide > summary:hover {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide > summary::before {
+    transition: none;
+  }
+}
