@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --paper: #14162b;
+  --panel: #1e2140;
+  --field: #272b52;
+  --ink: #eceeff;
+  --muted: #9298c4;
+  --line: #383d6e;
+  --accent: #ffb547;
+  --accent-ink: #231600;
+  --danger: #ff7a7a;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-panel: var(--panel);
+  --color-field: var(--field);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-pixel);
+}
+
+body {
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(146, 152, 196, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Blinking block next to the wordmark, like a save prompt waiting for input. */
+.save-cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 0.8em;
+  margin-left: 0.12em;
+  background: var(--accent);
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .save-cursor {
+    animation: none;
+  }
+}
+
+/* Chunky buttons with a hard shadow that press down when clicked. */
+.btn {
+  border: 2px solid #000;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 #000;
+  font-family: var(--font-pixel), sans-serif;
+  transition: transform 80ms, box-shadow 80ms;
+}
+
+.btn:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #000;
+}
