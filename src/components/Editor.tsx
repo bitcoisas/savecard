@@ -7,18 +7,11 @@ import { Card } from "./Card";
 import { FORMATS, getFormat, type FormatId } from "@/lib/formats";
 import { DEFAULT_PALETTE, extractPalette, type Palette } from "@/lib/color";
 import { STATUS_LABELS, type CardData, type GameStatus } from "@/lib/types";
+import { fetchCover, readAsDataUrl } from "@/lib/cover";
 import { BOOKMARKLET_VERSION, decodeImport, type ImportPayload } from "@/lib/bookmarklet";
 
 type Notice = { kind: "info" | "error"; message: string; details?: string[] };
 
-async function fetchCover(link: string): Promise<string> {
-  const res = await fetch(`/api/cover?url=${encodeURIComponent(link)}`);
-  if (!res.ok) {
-    const body = await res.json().catch(() => null);
-    throw new Error(body?.error ?? "Could not load that cover.");
-  }
-  return readAsDataUrl(await res.blob());
-}
 
 const INITIAL: CardData = {
   title: "Outer Wilds",
@@ -57,14 +50,6 @@ function supportsFileShare() {
   return shareSupport;
 }
 
-function readAsDataUrl(blob: Blob): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(blob);
-  });
-}
 
 export function Editor() {
   const [data, setData] = useState<CardData>(INITIAL);

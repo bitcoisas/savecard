@@ -9,7 +9,9 @@ export function BookmarkletInstall() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const value = buildBookmarklet(window.location.origin);
+    const value = buildBookmarklet(
+      window.location.origin + (process.env.NEXT_PUBLIC_BASE_PATH ?? ""),
+    );
     // React refuses javascript: links in props, so the href is set directly.
     link.current?.setAttribute("href", value);
     queueMicrotask(() => setCode(value));

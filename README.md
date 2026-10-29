@@ -4,6 +4,8 @@ Savecard creates shareable images from your [Backloggd](https://backloggd.com) g
 
 Each card shows the game cover, your rating, time played and the status of the game.
 
+Try it at https://bitcoisas.github.io/savecard/
+
 You can fill in the card by hand, or use the Savecard bookmarklet on a Backloggd review or game log to import the data from the page you have open. The setup instructions are on the `/bookmarklet` page of the app.
 
 This project is in early development.
@@ -27,6 +29,8 @@ npm run dev
 ```
 
 Then open http://localhost:3000.
+
+Savecard is a static site. Every push to the main branch is published to GitHub Pages by the workflow in `.github/workflows/deploy.yml`.
 
 ## License
 
