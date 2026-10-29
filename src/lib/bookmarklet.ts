@@ -64,7 +64,7 @@ function run(app: string, version: number) {
     const host = location.hostname.replace(/^www\./, "");
     if (host !== "backloggd.com") {
       toast(
-        "this bookmark only works on backloggd.com. Open your review or game log there and click it again.",
+        "this bookmark only works on backloggd.com. Open your review there and use the bookmark again.",
         true,
       );
       return;
@@ -83,7 +83,7 @@ function run(app: string, version: number) {
     const log = path.match(/^\/u\/([^/]+)\/(?:logs|journal)\/([^/]+)/);
     if (!review && !log) {
       toast(
-        "open one of your reviews (backloggd.com/u/you/review/…) or a game log (backloggd.com/u/you/logs/game) and click the bookmark again.",
+        "open your review first. Go to your profile, open the Reviews tab, click Open review on the game you want and use the bookmark again.",
         true,
       );
       return;
