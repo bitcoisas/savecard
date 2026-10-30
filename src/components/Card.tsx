@@ -68,7 +68,7 @@ const LAYOUTS: Record<FormatId, Layout> = {
     direction: "row",
     padding: "60px 72px",
     gap: 56,
-    coverWidth: 340,
+    coverWidth: 320,
     title: 54,
     meta: 24,
     star: 40,
@@ -96,6 +96,8 @@ export const Card = forwardRef<HTMLDivElement, Props>(function Card(
   const vertical = l.direction === "column";
   const coverHeight = Math.round(l.coverWidth / COVER_RATIO);
   const review = data.showReview ? data.review.trim() : "";
+  const user = normalizeUsername(data.username);
+  const profile = user ? `backloggd.com/u/${user}` : "";
 
   const clamp = (lines: number): CSSProperties => ({
     display: "-webkit-box",
@@ -281,13 +283,18 @@ export const Card = forwardRef<HTMLDivElement, Props>(function Card(
           padding: `0 ${format.id === "landscape" ? 72 : 80}px`,
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "baseline",
+          alignItems: "flex-end",
           fontSize: l.footer,
         }}
       >
-        <span style={{ opacity: 0.85 }}>
-          {data.username ? `@${data.username.replace(/^@/, "")}` : ""}
-        </span>
+        {profile ? (
+          <span style={{ display: "flex", flexDirection: "column", gap: l.footer * 0.2 }}>
+            <span style={{ fontSize: l.footer * 0.8, opacity: 0.65 }}>Review on Backloggd</span>
+            <span style={{ color: palette.accent, fontWeight: 600 }}>{profile}</span>
+          </span>
+        ) : (
+          <span />
+        )}
         <span
           style={{
             fontFamily: "var(--font-pixel), sans-serif",
@@ -302,6 +309,15 @@ export const Card = forwardRef<HTMLDivElement, Props>(function Card(
     </div>
   );
 });
+
+// Accepts "hiro", "@hiro" or a pasted profile link and returns "hiro".
+function normalizeUsername(value: string) {
+  return value
+    .trim()
+    .replace(/^@/, "")
+    .replace(/^(https?:\/\/)?(www\.)?backloggd\.com\/u\//i, "")
+    .replace(/\/.*$/, "");
+}
 
 function SlotCell({
   label,

@@ -349,7 +349,7 @@ export function Editor() {
           <Field label="Backloggd username">
             <input
               className={inputClass}
-              placeholder="optional"
+              placeholder="optional, shows your profile link on the card"
               value={data.username}
               onChange={(e) => update("username", e.target.value)}
             />
